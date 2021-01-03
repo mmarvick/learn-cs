@@ -1,0 +1,30 @@
+The pattern of ordering is like this:
+
+1  2  4  6  8 10 12 14 16 18 20
+   3  5  9 13 17 21
+      7 11 19
+        15
+
+(1,1) has nothing before it
+(1,2) has 1 thing before it
+(1,3) has 3 things before it
+(1,4) has 5 things before it
+...
+(1,11) has 19 things before it
+
+In general, (1, N) has (- (* 2 (- N 1)) 1) things before it
+                   or: (- (* N 2) 3)
+   except, (1,1) has 0
+
+In general, (2, N) has (1, N)'s number before plus (- (*2 N) 5)
+   except, (2,2 has just 1 added)
+
+A pattern seems to be emerging for (3, N) that's similar, except for (3,3)
+
+In general, it seems all (N,N) have (- (expt 2 N) 2) things beore them no matter what, then we can use the row-based additions to figure out the rest
+
+For all other values, I think we could build up something recursive using the patterns we've found, but I'm going to stop here :)
+
+I think we could build some sort or recursive statement off of this and generalizing, but I'm going to stop here
+
+I'm not sure how to calculate beyond that and don't want to generalize, but I think a pattern could be drawn :)

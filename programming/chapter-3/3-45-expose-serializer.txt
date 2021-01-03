@@ -1,0 +1,3 @@
+This is problematic, because the serialized exchange does a serialization on both accounts, inside which we do an unserialized withdraw and deposit. If those withdraws and deposits were also serialized we'd hit deadlock -- we'd have an outer serialize on both accounts, and then an inner call to withdraw that would be serialized using the same serializer.
+
+What we could do is expose an unserialized deposit and withdraw (so that by default they're serialized but you can request an unserialized version), and use those in functions like exchange. But now we're starting to really make things more complex :)

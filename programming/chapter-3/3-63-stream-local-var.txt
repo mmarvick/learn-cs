@@ -1,0 +1,3 @@
+The answer is correct. The revised version calls a new procedure with each recursive call to sqrt-stream, thus creating a new stream. We end up creating all N streams again to calculate each next number, and such O(N) streams are created to get each _new_ number and thus O(N^2) streams are created total to get to the end. Note that each new stream is just referring to other streams, so really each new number creates a new stream with O(N) numbers, so O(N^2) calculations are done.
+
+The version with a local variable uses just one stream, which'll have O(N) numbers and computes by the end. If we didn't memoize, it'd also be O(N^2) - so it's a good thing we do!

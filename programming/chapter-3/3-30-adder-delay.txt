@@ -1,0 +1,28 @@
+The half-adder takes:
+  (and) Carry: and_delay
+  (xor)   Sum: and_delay + max(or_delay, and_delay + invert_delay)
+
+The full-adder takes:
+  Carry:
+    ((and) or (and (xor)))
+    ((half-adder-carry-delay | (half-adder-sum-delay + half-adder-carry-delay)) + or_delay)
+    half-adder-sum-delay + half-adder-carry-delay + or-delay
+    2 * and_delay + or_delay + max(or_delay, and_delay + invert_delay)
+  Sum:
+    (xor xor)
+    half-adder-sum-delay + half-adder-carry-delay
+    2 * and_delay + max(or_delay, and_delay + invert_delay)
+
+The ripple-carry takes:
+  We need the full carry as an input to the next bit, so the total sum takes:
+  n * (2 * and_delay + or_delay + max(or_delay, and_delay + invert_delay))
+
+  If and_delay + invert_delay > or_delay:
+    n * (3 * and_delay + or_delay + invert_delay)
+    3n * and_delay + n * or_delay + n * invert_delay
+  Else:
+    n * (2 * and_delay + 2 * or_delay)
+    2n * and_delay + 2n * or_delay
+
+  Note: You don't _actually_ need the last carry (unless you want to do overflow detection), so you can remove 1 or_delay from the result
+        (since the sum takes an or_delay less time than the carry)

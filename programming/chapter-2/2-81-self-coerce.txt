@@ -1,0 +1,9 @@
+a - As written, we call back to apply-generic if we're able to coerce t1 to t2 or t2 to t1. If we end up coercing to our own type, we'll end up in an infinite recursion of not finding the op and trying to coerce the arg to its own type.
+
+b - We shouldn't need to handle this. apply-generic applies the operation if it exists for the two args as passed in. In the case that they're the same type, it'll look for the operation to be applied to those two arguments of the same type. If it can't find that, there's no need to coerce one of the arguments to its own type and try again.
+
+c - I'd probably add this between the first let (that gets the types and args) and the second let (that gets the coercion methods):
+
+(if (= type1 type2)
+    (error "No method found for these types" (list op type-tags))
+    (let ...))    ; this is the inner let

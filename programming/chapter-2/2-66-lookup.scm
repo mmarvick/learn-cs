@@ -1,0 +1,57 @@
+(define nil '())
+
+(define (make-tree elem left right) (list 'tree elem left right))
+(define (isTree? tree) (eq? 'tree (car tree)))
+(define tree-elem cadr)
+(define tree-left caddr)
+(define tree-right cadddr)
+
+(define (make-record id name) (list 'record id name))
+(define (isRecord? record) (eq? 'record (car record)))
+(define record-id cadr)
+(define record-name caddr)
+
+(define (list->tree l)
+  (define (partial-tree elem n)
+    (if (= n 0)
+      (cons nil elem)
+      (let* ((right-size (quotient n 2))
+              (left-size (- n right-size 1))
+              (left-result (partial-tree elem left-size))
+              (left-tree (car left-result))
+              (remaining-elem (cdr left-result))
+              (elem (car remaining-elem))
+              (right-elem (cdr remaining-elem))
+              (right-result (partial-tree right-elem right-size))
+              (right-tree (car right-result))
+              (unused-elem (cdr right-result))
+              (tree (make-tree elem left-tree right-tree)))
+                (cons tree unused-elem))))
+  (car (partial-tree l (length l))))
+
+(define (lookup key records record->key)
+  (if (null? records)
+      nil
+      (let* ((entry (tree-elem records))
+             (curr-key (record->key entry)))
+        (cond ((eq? key curr-key)
+                  entry)
+              ((< key curr-key)
+                  (lookup key (tree-left records) record->key))
+              ((> key curr-key)
+                  (lookup key (tree-right records) record->key))))))
+
+(define tree
+  (list->tree
+    (list
+      (make-record 1 "michael")
+      (make-record 2 "alex")
+      (make-record 3 "kaity")
+      (make-record 4 "regina")
+      (make-record 5 "mom")
+      (make-record 6 "dad"))))
+
+(display tree)(newline)
+(display (lookup 1 tree record-id))(newline)
+(display (lookup 2 tree record-id))(newline)
+(display (lookup 3 tree record-id))(newline)

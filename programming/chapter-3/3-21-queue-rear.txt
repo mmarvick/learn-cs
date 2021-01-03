@@ -1,0 +1,12 @@
+This implementation is just fine. Scheme doesn't know how to print this thing in a way that makes sense to _us_, but what it is printing is a pair that points to the front and pack of the queue -- basically, a pair that will print as the whole list at the car, and the pointer to the rear at the cdr.
+
+The rear pointer of the queue doesn't change as we remove things - only as we add them. As a consequence, it will continue to point to what was the last thing in the queue, even when it has been evicted. This is fine because:
+- when we check for an empty queue, we only look at the front pointer
+- when we add an item to an empty queue that once had items, we will cons the old end of the queue with the new start of the queue, and then move the rear pointer to the new end of the queue. the front pointer will point to the start of the queue. Even though the end of the old queue is pointing to the start of the new queue, it doesn't matter -- nothing in our queue points to the old queue item anymore. The wrapper around the old item will be garbage collected, and if the old element isn't being referenced anywhere else, it'll also be garbage collected.
+
+print queue could simply be:
+(define print-queue front-ptr)
+
+If we want to actually print (instead of just return the front-ptr), then we'd probably do:
+(define (print-queue queue)
+  (display (front-ptr queue))(newline))

@@ -1,0 +1,57 @@
+(define (identity x) x)
+(define (square x) (* x x))
+(define (increment x) (+ x 1))
+(define (divides? a b) (= 0 (modulo a b)))
+(define (smallest-divisor n)
+    (define (smallest-divisor-iter d)
+        (cond ((> (square d) n) n)
+            ((divides? n d) d)
+            (else (smallest-divisor-iter (+ d 1)))))
+
+    (smallest-divisor-iter 2)
+)
+(define (gcd a b)
+  (if (= 0 b)
+    a
+    (gcd b (modulo a b)))
+)
+(define (prime? n) (= n (smallest-divisor n)))
+(define (relatively-prime? a b) (= 1 (gcd a b)))
+
+(define (filtered-accumulate a b next filter? calculate combiner null-value)
+    (define (accumulate-iter accum a)
+        (cond ((> a b) accum)
+            ((filter? a) (accumulate-iter (combiner accum (calculate a)) (next a)))
+            (else (accumulate-iter accum (next a)))))  
+    (accumulate-iter null-value a))
+
+(define (sum-filtered-series a b next filter? calculate)
+    (filtered-accumulate a b next filter? calculate + 0))
+
+(define (product-filtered-series a b next filter? calculate)
+    (filtered-accumulate a b next filter? calculate * 1))
+
+(define (sum-prime-sq max)
+    (sum-filtered-series 1 max increment prime? square))
+
+(define (prod-relatively-prime-through max)
+    (define (filter? x) (relatively-prime? x max))
+    (product-filtered-series 1 max increment filter? identity))
+
+
+(display "sum-prime-sq") (newline)
+(display (sum-prime-sq 1)) (newline)
+(display (sum-prime-sq 2)) (newline)
+(display (sum-prime-sq 3)) (newline)
+(display (sum-prime-sq 4)) (newline)
+(display (sum-prime-sq 5)) (newline)
+(display (sum-prime-sq 6)) (newline)
+(display (sum-prime-sq 7)) (newline)
+
+(display "prod-relatively-prime-through") (newline)
+(display (prod-relatively-prime-through 1)) (newline)
+(display (prod-relatively-prime-through 2)) (newline)
+(display (prod-relatively-prime-through 3)) (newline)
+(display (prod-relatively-prime-through 4)) (newline)
+(display (prod-relatively-prime-through 5)) (newline)
+(display (prod-relatively-prime-through 9)) (newline)

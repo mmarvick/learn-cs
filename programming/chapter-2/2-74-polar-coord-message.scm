@@ -1,0 +1,21 @@
+(define (apply-message op msg) (msg op))
+
+(define (make-from-mag-ang mag ang)
+  (lambda (op)
+    (cond ((eq? op 'magnitude)
+              mag)
+          ((eq? op 'angle)
+              ang)
+          ((eq? op 'real-part)
+              (* mag (cos ang)))
+          ((eq? op 'imag-part)
+              (* mag (sin ang)))
+          (else
+            (error "UNKNOWN OP - " op)))))
+
+(let ((polar (make-from-mag-ang 20 0.75)))
+  (display (polar 'magnitude))(newline)
+  (display (apply-message 'magnitude polar))(newline)
+  (display (polar 'angle))(newline)
+  (display (polar 'real-part))(newline)
+  (display (polar 'imag-part))(newline))

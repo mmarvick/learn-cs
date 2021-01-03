@@ -1,0 +1,5 @@
+In this example, it doesn't make a difference.
+
+Both withdraw and deposit make a read, and then a write. We can run into trouble if the value changes between the read and the write (or between multiple reads of the same value), because that means another transaction is going to get overwritten.
+
+Just doing a read doesn't make much difference here. The read is going to either happen before the write from a depsoit or withdraw completes. Whether there's serialization or not, we either get the pre-updated or post-updated value. If there were multiple updates within a withdraw or a deposit, however, this would be a valid concern.

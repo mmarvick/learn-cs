@@ -1,0 +1,5 @@
+In this type of tree, it takes:
+
+1 bit to encode the most popular item
+i bits to encode the i-th most popular item
+(n-1) bits to encode the least most popular item (meaning, the least and 2nd to least take the same # of bits)

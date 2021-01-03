@@ -1,0 +1,30 @@
+(define one (lambda (x) 1))
+
+(define (cont-frac n d k)
+    (define (cont-frac-iterative-step k-cur accum)
+        (let ((n (n k-cur)) (d (d k-cur)))
+            (let ((div (/ n (+ d accum))))
+                (if (= k-cur 1) div (cont-frac-iterative-step (- k-cur 1) div)))))
+    (cont-frac-iterative-step k 0))
+
+(define (euler k)
+    (define (den k)
+        (if (= (modulo k 3) 2)
+            (* 2 (+ 1 (quotient k 3)))
+            1))
+    (+ 2.0 (cont-frac one den k)))
+
+; actual value: 2.7182818284
+(display "euler") (newline)
+(display (euler 1)) (newline)
+(display (euler 2)) (newline)
+(display (euler 3)) (newline)
+(display (euler 4)) (newline)
+(display (euler 5)) (newline)
+(display (euler 6)) (newline)
+(display (euler 7)) (newline)
+(display (euler 8)) (newline)
+(display (euler 9)) (newline)
+(display (euler 10)) (newline)
+(display (euler 100)) (newline)
+    

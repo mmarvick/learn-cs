@@ -1,0 +1,24 @@
+Number of adds: n-2 (assuming n is 1-based)
+
+If we didn't delay, it'd be exponentially higher because we'd be following the substitution model.
+
+Example:
+
+(cons-stream 0
+             (cons-stream 1
+                          (add-streams (stream-cdr fibs)
+                                       (fibs))))
+
+Would become
+
+(cons-stream 0
+            (cons-stream 1
+                        (add-streams (cons-stream 1
+                                                  (add-streams (stream-cdr fibs)
+                                                                fibs))
+                                     (cons-stream 0
+                                                  (cons-stream 1
+                                                              (add-streams (stream-cdr fibs)
+                                                                            fibs))))))
+
+Which would continue to expand...

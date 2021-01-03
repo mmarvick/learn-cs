@@ -1,0 +1,3 @@
+Diagram drawn on paper
+  => no, you can't create `memo-fib` just by calling `(memoize fib)`, because the recursive calls to the function need to call
+     `memo-fib`, not `fib`

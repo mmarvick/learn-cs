@@ -1,0 +1,14 @@
+These appear to be the same - I had to draw out the second algo to proove to myself how it worked.
+
+These both are in-order traversal (go all the way to the left, then back up, then right)
+
+Answers:
+(1 3 5 7 9 11)
+(1 3 5 7 9 11)
+(1 3 5 7 9 11)
+
+
+The former algo has O(n^2) complexity (since append is O(n))
+    THIS WAS WRONG! It's actually O(n log(n))
+    This is unintuitive to me, even after looking at the solutions. I'll have to think about this a bit more. I believe it's weighted on the fact that append is only done on the nodes, and based on the fact that the left branch is often null or short.
+The latter has O(n) complexity (since I always have myself being cons-ed with the right side)

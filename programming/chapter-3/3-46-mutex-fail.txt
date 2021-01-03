@@ -1,0 +1,13 @@
+If test-and-set! isn't atomic, you can end up with this:
+
+process A enters test-and-set!
+process A sees that the mutex is false
+process B enters test-and-set!
+process B sees that the mutex is false
+process A sets mutex to true
+process B sets mutex to true
+process A calculates a result, sets the mutex to false, and returns a value
+(note: process C could now go do some stuff even though B is still executing!)
+process B calculates a result, sets the mutex to false, and returns a value
+
+The root problem is that multiple processes could get past the _check_ to see if the mutex is true or false, before one of the processes sets the mutex to true.

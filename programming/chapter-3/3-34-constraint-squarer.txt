@@ -1,0 +1,7 @@
+This will probably work when setting input, but not output.
+
+- If the multiplier gets two input values set at once, and will correctly propogate to the output.
+- If both input and output are set, we'll correctly say there's a violation.
+- However, if we get just an output value, we won't know to propogate that backwards to the input. Because:
+  - Our multiplier is only designed to return a 3rd output when the first 2 are set
+  - Our multiplier knows nothing about how to take a square root :)

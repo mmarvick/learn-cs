@@ -1,0 +1,11 @@
+With no serialization, outcomes include:
+
+100 (S1 and S2 read concurrently, S2 saves, S1 saves)
+1000 (S1 and S2 read concurrently, S1 saves, S2 saves)
+10000 (S2 reads the first two x as 10 and 10, S1 completes and writes, S2 reads the next x as 100)
+100000 (S2 reads the first x as 10, S1 completes and writes, S2 reads the next two x as 100 and 100)
+1000000 (S1 completely happens, then S2 completely happens; or the opposite order)
+
+
+With serialization on both the reading and the setting, the only outcome is:
+1000000, which happens regardless of X^2 or X^3 going first

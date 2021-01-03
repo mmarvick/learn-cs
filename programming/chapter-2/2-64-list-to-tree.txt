@@ -1,0 +1,28 @@
+At each step, you:
+    have the elements "remaining"
+    have the size you want for the subtree
+    get the sizes of the left and right
+        left is the rounding down of the half of 1 less than size of tree
+        right is the total size minus left size minus 1
+    for the left result, pass down all the elements to make a tree of it
+        get back a list of two things:
+            the left side as a tree (by making recursive calls)
+            the remaining elements of the list
+    get the first thing of the remaining list as "this" node's elements
+    take the rest of the remaining list to be the list on the right side
+    call down to get the right tree with the right tree size
+        get back a list of two things:
+            the right side as a tree (by making recursive calls)
+            the remaining elements of the list
+    return two things up:
+        the tree of this element, the left tree, the right tree
+        the remaining elements not made by this tree
+            when this is the outermost call, the remaining elements will be 0 at this point
+            when not the outermost call, if the remain list is not nil, then it's because this tree is the left subtree of another tree; need to form entry and right side still
+
+At the end, you'll have two things back:
+    the whole tree
+    the remaining elements (should be nil list)
+Get the left thing (the whole tree) and return it
+
+The algorithm is O(N*logN)

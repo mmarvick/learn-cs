@@ -1,0 +1,32 @@
+(define make-vect cons)
+(define xcor-vect car)
+(define ycor-vect cdr)
+
+(define (make-frame-1 origin edge1 edge2)
+    (list origin edge1 edge2))
+(define origin-frame-1 car)
+(define edge1-frame-1 cadr)
+(define edge2-frame-1 caddr)
+
+(define (make-frame-2 origin edge1 edge2)
+    (cons origin (cons edge1 edge2)))
+(define origin-frame-2 car)
+(define edge1-frame-2 cadr)
+(define edge2-frame-2 cddr)
+
+(define f1 (make-frame-1 (make-vect 1 1)
+                         (make-vect 2 4)
+                         (make-vect 3 7)))
+(display f1)(newline)
+(display (origin-frame-1 f1))(newline)
+(display (edge1-frame-1 f1))(newline)
+(display (edge2-frame-1 f1))(newline)
+
+(define f2 (make-frame-2 (make-vect 1 1)
+                         (make-vect 2 4)
+                         (make-vect 3 7)))
+(display f2)(newline)
+(display (origin-frame-2 f2))(newline)
+(display (edge1-frame-2 f2))(newline)
+(display (edge2-frame-2 f2))(newline)
+

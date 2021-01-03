@@ -1,0 +1,24 @@
+The problem is something like this:
+
+Account A - $10
+Account B - $20
+Account C - $30
+
+Start swap of B and C
+  calculate that $10 should go from C to B
+Start swap of A and C
+  calculate that $20 should go from C to A
+Debit C by $10 (note - same outcome even if debit and credits aren't interleaved)
+Debit C by $20
+Credit B by $10
+Credit A by $20
+
+New state:
+
+Account A - $30
+Account B - $30
+Account C - $0
+
+You don't end up with any _lost_ money, as you're always doing a debit and credit of the same amount and each account's updates are serialized such that two updates don't overwrite eachother.
+
+However, you don't end up with the intended effect of having accounts at $10, $20, and $30.

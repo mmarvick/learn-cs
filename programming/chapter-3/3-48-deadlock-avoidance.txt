@@ -1,0 +1,10 @@
+This works because the "bottleneck" becomes the lower-valued account id always. Because we have a consistent ordering that we lock things in, we'll never end up in this sort of circular lock (deadlock) where a lower account is waiting on a higher account, but the higher account is waiting on a lower account (either directly or through a cycle).
+
+(define (serialized-exchange account1 account2)
+  (let ((account1id (account1 'id) (account2id (account2 'id))))
+    (let ((first-account-id (min account1id account2id)))
+      (let ((first-account (if (= first-account-id account1id) account1 account2))
+            (second-account (if (= first-account-id account1id) account2 account1)))
+        (let ((serializer1 (first-account 'serializer))
+              (serializer2 (second-account 'serializer)))
+          ((serializer1 (serializer2 exchange))))))))

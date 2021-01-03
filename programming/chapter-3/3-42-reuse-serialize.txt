@@ -1,0 +1,1 @@
+This is a safe change to make. We were always using the same serializer within an account. Whether we make new serialized functions or reuse the same one, the data is getting passed down to the serializer in the same way.

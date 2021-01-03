@@ -1,0 +1,5 @@
+The following would remain:
+
+- 100 (we read values and calculate 10^2, then the atomic increment completes, then we save the result of the square while disregarding the increment)
+- 101 (both parts of the squaring complete, and then the atomic increment completes)
+- 121 (the atomic increment completes, and then the both parts of the squaring complete)

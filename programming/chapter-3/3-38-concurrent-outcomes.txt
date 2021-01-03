@@ -1,0 +1,7 @@
+a. You could end up with ending balances of:
+35, 40, 45, 50
+
+b. You could end up with:
+50, 80, or 110 (if all 3 balances are read concurrently but only one commits)
+40, 55, or 60 (if the first two happen concurrent, and the last is before or after)
+And some other options if the other two combinations of two concurrent events and one nonconcurrent event happen, with the nonconcurrent being either before or after

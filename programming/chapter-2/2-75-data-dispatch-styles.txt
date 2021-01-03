@@ -1,0 +1,18 @@
+Changes to make when adding new objects or operations for
+
+Generic operations w/ explicit dispatch
+    New Objects: Need to update each operation to check and dispatch for the new object type
+    New Operations: Create the new operation, and add dispatch methods to call to to use it for each object type
+
+Data-directed style
+    New Objects: Create a new package that adds its operation handling to the global system.
+    New Operations: For each object, add the operation and the symbols to the global dispatch system.
+
+Message-passing style
+    New Objects: Create a new message type that contains all its operations
+    New Operations: Within each message object, add the operation
+
+
+For creating lots of new objects, I'd prefer data-directed or message-passing style. Each team can work independently on them, just implementing the needed operations.
+
+For new operations, I'd probably prefer data-directed or generic operations. For data-directed, I'd treat each operation as a "package" that adds the symbols and methods to the global system. Similarly for generic methods, different teams can own the methods and add the operations needed to do the explicit dispatch.

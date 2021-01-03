@@ -1,0 +1,5 @@
+No, we don't need to serialize on both accounts - Ben is right.
+
+The reason we needed to serialize when doing an exchange, is that doing an exchange relies on reading the two account values, doing some math, and then making updates to both. Even if we didn't serialize, we wouldn't _lose_ money from the system (since the updates to each account are serialized, and the update being made to each account is determined before updating either and nont re-calculated), but may end up transferring the wrong amounts of money if there are concurrent exchanges.
+
+With doing a transfer, we're not doing any reading to decide the amount to transfer -- that's fixed. As long as there are no concerns about accounts going negative (not realistic to the real world, but it's the constraint in this case), then we should be fine without locking on both accounts before starting the transfer.
