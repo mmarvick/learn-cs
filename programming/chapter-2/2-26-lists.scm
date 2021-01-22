@@ -1,3 +1,4 @@
+; I wrote this out on the paper. I got append and list right, but not cons -- oops
 (define x (list 1 2 3))
 (define y (list 4 5 6))
 

@@ -1,0 +1,9 @@
+I did A on paper all the way through to 1024 (2^10)
+I did B on paper enough to say it's 2^16
+
+For C, I think...
+  (f n) is 2n
+  (g n) is 2^n
+  (h n) is 2^n^n
+
+I'll be honest though, I stopped before fully convincing myself that this is true :)

@@ -1,0 +1,6 @@
+I did this on paper, and got:
+
+a - 5 times
+b - O(log X)
+
+These answers may be wrong.

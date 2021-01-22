@@ -1,0 +1,3 @@
+I did this on paper
+  Space: O(n)
+  Size:  O(5^n)
